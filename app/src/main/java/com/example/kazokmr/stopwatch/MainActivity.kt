@@ -14,10 +14,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val versionName = findViewById<TextView>(R.id.versionName)
         val timeText = findViewById<TextView>(R.id.timeText)
         val startButton = findViewById<Button>(R.id.start)
         val stopButton = findViewById<Button>(R.id.stop)
         val resetButton = findViewById<Button>(R.id.reset)
+
+        versionName.text = getVersion()
 
         val runnable = object : Runnable {
             override fun run() {
@@ -62,5 +65,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun getVersion(): String? {
+
+        val packageName = getPackageName()
+        val packageInfo = packageManager.getPackageInfo(packageName,0)
+        return packageInfo.versionName
     }
 }
